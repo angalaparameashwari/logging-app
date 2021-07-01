@@ -8,16 +8,16 @@ public class Sorting {
         print(log);
     }
 
-    public static Log mergeKLists(Log[] logs, int last)
+    public static Log mergeKLists(Log[] logs, int lastInTheList)
     {
-        while (last != 0) {
-            int i = 0, j = last;
+        while (lastInTheList != 0) {
+            int i = 0, j = lastInTheList;
             while (i < j) {
                 logs[i] = sortAndMerge(logs[i], logs[j]);
                 i++;
                 j--;
                 if (i >= j) {
-                    last = j;
+                    lastInTheList = j;
                 }
             }
         }
@@ -25,20 +25,20 @@ public class Sorting {
         return logs[0];
     }
 
-    public static Log sortAndMerge(Log a, Log b)
+    public static Log sortAndMerge(Log item1, Log item2)
     {
         Log result;
-        if (a == null)
-            return b;
-        else if (b == null)
-            return a;
-        if (a.timeStamp <= b.timeStamp) {
-            result = a;
-            result.next = sortAndMerge(a.next, b);
+        if (item1 == null)
+            return item2;
+        else if (item2 == null)
+            return item1;
+        if (item1.timeStamp <= item2.timeStamp) {
+            result = item1;
+            result.next = sortAndMerge(item1.next, item2);
         }
         else {
-            result = b;
-            result.next = sortAndMerge(a, b.next);
+            result = item2;
+            result.next = sortAndMerge(item1, item2.next);
         }
 
         return result;
